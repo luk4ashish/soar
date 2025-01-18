@@ -1,0 +1,21 @@
+pipeline {
+    agent {
+        label 'automation agent'
+    }
+    parameters{
+        choice(choices:['~@all', '@regression'], description: 'Tags to be selected', name:'tags')
+    }
+
+    stages {
+        stage('Running test cases') {
+            steps {
+                echo 'Running the test cases'
+                bat """
+
+                        pip3 install -r requirements.txt
+                        python test_runner.py ${tags}
+                """
+            }
+        }
+    }
+}
