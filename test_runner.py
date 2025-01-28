@@ -2,7 +2,7 @@ import glob
 import logging
 import os
 import threading
-
+import chromedriver_binary
 from common.setup import parse_environment_file
 from multiprocessing import context
 
