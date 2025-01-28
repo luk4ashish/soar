@@ -1,0 +1,39 @@
+name: Test Automation
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to the main branch
+  pull_request:
+    branches:
+      - main  # Trigger on pull requests to the main branch
+  workflow_dispatch: # Allows manual triggering of the workflow
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest # GitHub-hosted Linux runner
+    env:
+      TAGS: ${{ github.event.inputs.tags || '~@all' }} # Default to '~@all' if no input provided
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x' # Adjust to your required Python version
+
+      # Step 3: Install dependencies
+      - name: Install Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Step 4: Run tests
+      - name: Run Test Cases
+        run: |
+          echo "Running tests with tags: ${{ env.TAGS }}"
+          python test_runner.py ${{ env.TAGS }}
