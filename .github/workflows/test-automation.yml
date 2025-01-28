@@ -19,7 +19,10 @@ jobs:
       # Step 1: Checkout the repository
       - name: Checkout Code
         uses: actions/checkout@v3
-
+      
+      - name: Print Chrome Version
+        run: google-chrome --version
+      
       # Step 2: Set up Python environment
       - name: Set up Python
         uses: actions/setup-python@v4
