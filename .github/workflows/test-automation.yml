@@ -30,7 +30,7 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r rrequirement.txt
 
       # Step 4: Run tests
       - name: Run Test Cases
