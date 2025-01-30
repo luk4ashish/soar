@@ -13,6 +13,7 @@ from selenium.webdriver.chrome.service import Service as ChromeService, Service
 from selene.api import browser
 from selenium import webdriver
 import allure
+import tempfile
 
 
 
@@ -87,8 +88,14 @@ def initialize(context):
         exit()
     parse_environment_file(context, environment_xml)
     #if context.context.browser_information == "Chrome":
+    # Create a temporary directory for user data
+    temp_user_data_dir = tempfile.mkdtemp()
     service = Service('/usr/local/bin/chromedriver')  # Specify the full path to the correct chromedriver
     options = webdriver.ChromeOptions()
+    options.add_argument(f"--user-data-dir={temp_user_data_dir}")  # Use a unique directory
+    options.add_argument("--headless")  # Optional: Run headless
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
     driver = webdriver.Chrome(service=service, options=options)
     context.browser = driver
     driver.set_page_load_timeout(30)
