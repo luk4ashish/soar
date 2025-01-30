@@ -87,12 +87,10 @@ def initialize(context):
         exit()
     parse_environment_file(context, environment_xml)
     #if context.context.browser_information == "Chrome":
-    #service = Service('/Users/ashish/Desktop/chromedriver')  # Specify the full path to the correct chromedriver
-    driver_path = ChromeDriverManager().install()  # Returns path to the correct chromedriver binary
-    service = Service(driver_path)  # Point to the correct executable binary
-
+    service = Service('/usr/local/bin/chromedriver')  # Specify the full path to the correct chromedriver
     options = webdriver.ChromeOptions()
-    context.browser = webdriver.Chrome(service=service, options=options)
+    driver = webdriver.Chrome(service=service, options=options)
+    context.browser = driver
     driver.set_page_load_timeout(30)
     setup_selene(context, driver)
     context.browser.get(context.serverPath)
