@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'automation agent'
+        label 'automation'
     }
     parameters{
         choice(choices:['~@all', '@regression'], description: 'Tags to be selected', name:'tags')
